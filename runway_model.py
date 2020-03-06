@@ -72,9 +72,12 @@ def generate(model, args):
     }
 
 @runway.command(name='add',
-                inputs={ 'x': number(), 'y': number() },
+                inputs={
+                    'x': number('', 10, 10, 0, 200),
+                    'y': number('', 40, 10, 0, 200),
+                },
                 outputs={ 'addition': number() },
-                description='Adds to numbers.')
+                description='Adds two numbers.')
 def generate(model, args):
     print('[GENERATE] Ran with x value "{0}" and y value "{1}"'.format(args['x'], args['y']))
     # Generate a PIL or Numpy image based on the input caption, and return it
