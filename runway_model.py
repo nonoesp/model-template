@@ -71,6 +71,19 @@ def generate(model, args):
         'image': output_image
     }
 
+@runway.command(name='add',
+                inputs={ 'x': number(), 'y': number() },
+                outputs={ 'addition': number() },
+                description='Adds to numbers.')
+def generate(model, args):
+    print('[GENERATE] Ran with x value "{0}" and y value "{1}"'.format(args['x'], args['y']))
+    # Generate a PIL or Numpy image based on the input caption, and return it
+    # output_image = model.run_on_input(args['caption'])
+    output_number = args['x'] + args['y']
+    return {
+        'addition': output_number
+    }
+
 if __name__ == '__main__':
     # run the model server using the default network interface and ports,
     # displayed here for convenience
@@ -82,3 +95,10 @@ if __name__ == '__main__':
 #   -H "content-type: application/json" \
 #   -d '{ "caption": "red" }' \
 #   localhost:8000/generate
+
+## Now that the model is running, open a new terminal and give it a command to
+## generate an image. It will respond with a base64 encoded URI
+# curl \
+#   -H "content-type: application/json" \
+#   -d '{ "x": 400, "y": 100}' \
+#   localhost:8000/add
